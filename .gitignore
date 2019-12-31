@@ -1,0 +1,9 @@
+/*.log
+/target
+/*-init.clj
+/resources/public/js/compiled
+out
+.shadow-cljs/
+/public/assets
+node-modules/
+.DS_Store
