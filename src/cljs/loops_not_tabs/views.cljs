@@ -9,7 +9,9 @@
 (defn player []
   (r/create-class
    {:display-name "Player"
-    :component-did-mount #(rf/dispatch [:player-ready (new YTPlayer "#player")])
+    :component-did-mount (fn [_] 
+                           (rf/dispatch [:player-ready (new YTPlayer "#player")])
+                           (.addEventListener js/document "keydown" #(rf/dispatch [:keydown %])))
     :reagent-render (fn []
                       [:div.player-container
                        [:div#player]])}))

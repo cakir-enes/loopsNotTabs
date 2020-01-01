@@ -10,6 +10,11 @@
    db/default-db))
 
 (rf/reg-event-fx
+ :keydown
+ (fn [_ [_ e]]
+   (println (.-code e))))
+
+(rf/reg-event-fx
  :player-ready
  (fn [{:keys [db]} [_ player]]
    {:db (assoc db :player player)
