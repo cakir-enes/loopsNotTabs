@@ -10,7 +10,9 @@
   (r/create-class
    {:display-name "Player"
     :component-did-mount #(rf/dispatch [:player-ready (new YTPlayer "#player")])
-    :reagent-render (fn [] [:div#player])}))
+    :reagent-render (fn []
+                      [:div.player-container
+                       [:div#player]])}))
 
 (defn main-panel []
   (let [name (rf/subscribe [::subs/name])]
