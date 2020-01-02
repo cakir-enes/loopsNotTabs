@@ -5,6 +5,9 @@
    :library []
    :player nil
    :loops []
-   :loop {}
+   :active-loop {}
+   :rec-loop {}
    :title ""
+   :recording? false
+   :playing? false
    :url ""})

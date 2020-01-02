@@ -1,8 +1,8 @@
 (ns loops-not-tabs.subs
   (:require
-   [re-frame.core :as re-frame]))
+   [re-frame.core :as rf]))
 
-(re-frame/reg-sub
- ::name
+(rf/reg-sub
+ :loops
  (fn [db]
-   (:name db)))
+   (:loops db)))
