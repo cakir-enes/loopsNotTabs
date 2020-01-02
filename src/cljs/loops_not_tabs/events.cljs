@@ -51,18 +51,22 @@
  (fn [db [_ loop]]
    (when (:looping? db) (js/clearInterval (:looping? db)))
    (.seek (:player db) (:begin loop))
-   (assoc db :looping? (js/setInterval (fn [] 
-                                         (let [player (:player db)
-                                               diff (- (.getCurrentTime player) (:end loop))]
-                                           (when (pos? diff) (.seek player (:begin loop)))))
-                                       450))))
+   (-> db
+       (assoc :looping? (js/setInterval (fn [] 
+                                          (let [player (:player db)
+                                                diff (- (.getCurrentTime player) (:end loop))]
+                                            (when (pos? diff) (.seek player (:begin loop)))))
+                                        450))
+       (assoc :active-loop loop))))
 
 (rf/reg-event-db
  :stop-loop
  (fn [db [_]]
    (println "STOPPING LOOP")
    (js/clearInterval (:looping? db))
-   (assoc db :looping? nil)))
+   (-> db 
+       (assoc :looping? nil)
+       (assoc :active-loop nil))))
 
 (rf/reg-event-fx
  :player-ready

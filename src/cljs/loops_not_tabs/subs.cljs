@@ -6,3 +6,8 @@
  :loops
  (fn [db]
    (:loops db)))
+
+(rf/reg-sub
+ :active-loop
+ (fn [db]
+   (:active-loop db)))

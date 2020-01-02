@@ -1,3 +1,10 @@
+@import url("https://fonts.googleapis.com/css?family=Righteous&display=swap");
+body {
+  font-family: 'Righteous', cursive;
+  background: #EBF3FA;
+  color: #31456A;
+}
+
 .player-container {
   position: relative;
   padding-top: 56.25%;
@@ -9,5 +16,53 @@
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.loops {
+  display: -ms-grid;
+  display: grid;
+}
+
+.loop {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 80px 1fr;
+      grid-template-columns: 80px 1fr;
+  -ms-grid-rows: 50px 50px;
+      grid-template-rows: 50px 50px;
+  width: 300px;
+  background: -webkit-gradient(linear, left bottom, left top, from(#E3EDF7), to(#E3EDF7));
+  background: linear-gradient(0deg, #E3EDF7, #E3EDF7);
+  border-radius: 16px;
+  cursor: pointer;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.loop:hover, .loop.active {
+  -webkit-box-shadow: 6px 2px 16px rgba(136, 165, 191, 0.48), 4px 4px 22px rgba(18, 46, 101, 0.16), -6px -2px 16px rgba(255, 255, 255, 0.8), inset -2px -2px 14px rgba(255, 255, 255, 0.2);
+          box-shadow: 6px 2px 16px rgba(136, 165, 191, 0.48), 4px 4px 22px rgba(18, 46, 101, 0.16), -6px -2px 16px rgba(255, 255, 255, 0.8), inset -2px -2px 14px rgba(255, 255, 255, 0.2);
+}
+
+.loop h4 {
+  margin-top: 12px;
+  font-size: 18px;
+}
+
+.loop h4.shortcut {
+  text-align: end;
+  color: #8CA2B7;
+  font-size: 14px;
+}
+
+.loop h4.label {
+  color: #8CA2B7;
+  font-size: 14px;
+  text-justify: distribute;
+  margin-bottom: 0;
+}
+
+.loop h4.time {
+  text-align: end;
 }
 /*# sourceMappingURL=styles.css.map */
