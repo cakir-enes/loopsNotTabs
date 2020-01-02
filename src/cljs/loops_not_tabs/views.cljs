@@ -21,9 +21,11 @@
   (let [loops @(rf/subscribe [:loops])]
     [:div
      [player]
-     [:h1 "LOOPS"]
+     [:h1 {:on-click #(rf/dispatch [:stop-loop])} "LOOPS" ]
      [:ul
       (doall (map-indexed (fn [i loop] 
                             ^{:key i}
-                            [:li [:h4 (str loop)]]) 
+                            [:li {:on-click (fn []
+                                              (println "Trying play loop")
+                                              (rf/dispatch [:play-loop loop]))} [:h4 (str loop)]]) 
                           loops))]]))
