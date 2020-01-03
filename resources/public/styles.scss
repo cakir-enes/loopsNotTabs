@@ -1,23 +1,75 @@
 @import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
 
 
+@mixin for-portrait {
+  @media (min-width: 100px) { @content; }
+}
+@mixin for-landscape {
+  @media (min-width: 1200px) { @content; }
+}
+
+
 body {
   font-family: 'Righteous', cursive;
   background: #EBF3FA;
   color: #31456A;
 }
 
+.container {
+  display: grid;
+
+   @include for-portrait {
+    grid-template-areas:
+      "player player"
+      "navbar controls"
+      "content content";
+  } 
+
+  @include for-landscape {
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: 80px 1fr 50px;
+    grid-template-areas:
+      "navbar player"
+      "content player"
+      "content controls";
+  }
+}
+
 .player-container {
+  grid-area: player;
   position: relative;
   // top: 0;
   padding-top: 56.25%;
-
   #player {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+  }
+}
+
+.player-controls {
+  grid-area: controls;
+  background: red;
+  width: 100%;
+  height: 50px;
+}  
+
+.content {
+  grid-area: content;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    @include for-portrait {
+      max-height: 36vh;
+    }
+    @include for-landscape {
+      max-height: 81vh;
+    }
+    overflow: hidden;
+    overflow-y: auto;
   }
 }
 
@@ -38,18 +90,6 @@ body {
     justify-content: space-between;
   }
 
-  ul {
-    // display: grid;
-    // grid-template-rows: 1fr 1fr;
-    max-height: 36vh;
-    overflow: hidden;
-    overflow-y: auto;
-    
-    // overflow: hidden;
-    // overflow-y: scroll;
-  }
-
-
 
   .loop {
     
@@ -60,7 +100,7 @@ body {
     background: linear-gradient(0deg, #E3EDF7, #E3EDF7);
     border-radius: 16px;
     cursor: pointer;
-  
+    margin: 0;
     
     &:hover, &.active {
       box-shadow: 6px 2px 16px rgba(136, 165, 191, 0.48), 4px 4px 22px rgba(18, 46, 101, 0.16), -6px -2px 16px rgba(255, 255, 255, 0.8), inset -2px -2px 14px rgba(255, 255, 255, 0.2);
@@ -69,7 +109,7 @@ body {
     h4 {
       // margin-top: 12px;
      
-      font-size: 18px;
+      font-size: 14px;
       
       &.shortcut {
         // text-align: end;

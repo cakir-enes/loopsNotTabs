@@ -5,7 +5,29 @@ body {
   color: #31456A;
 }
 
+.container {
+  display: -ms-grid;
+  display: grid;
+}
+
+@media (min-width: 100px) {
+  .container {
+        grid-template-areas: "player player" "navbar controls" "content content";
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    -ms-grid-columns: 280px 1fr;
+        grid-template-columns: 280px 1fr;
+    -ms-grid-rows: 80px 1fr 50px;
+        grid-template-rows: 80px 1fr 50px;
+        grid-template-areas: "navbar player" "content player" "content controls";
+  }
+}
+
 .player-container {
+  grid-area: player;
   position: relative;
   padding-top: 56.25%;
 }
@@ -16,6 +38,36 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.player-controls {
+  grid-area: controls;
+  background: red;
+  width: 100%;
+  height: 50px;
+}
+
+.content {
+  grid-area: content;
+}
+
+.content ul {
+  list-style: none;
+  padding: 0;
+  overflow: hidden;
+  overflow-y: auto;
+}
+
+@media (min-width: 100px) {
+  .content ul {
+    max-height: 36vh;
+  }
+}
+
+@media (min-width: 1200px) {
+  .content ul {
+    max-height: 81vh;
+  }
 }
 
 .loops {
@@ -41,12 +93,6 @@ body {
           justify-content: space-between;
 }
 
-.loops ul {
-  max-height: 36vh;
-  overflow: hidden;
-  overflow-y: auto;
-}
-
 .loops .loop {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -58,6 +104,7 @@ body {
   background: linear-gradient(0deg, #E3EDF7, #E3EDF7);
   border-radius: 16px;
   cursor: pointer;
+  margin: 0;
 }
 
 .loops .loop:hover, .loops .loop.active {
@@ -66,7 +113,7 @@ body {
 }
 
 .loops .loop h4 {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 .loops .loop h4.shortcut {

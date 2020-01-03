@@ -46,8 +46,18 @@
                  [:h4.time (format-loop loop)]])
               loops))]]))
 
+(defn navbar []
+   [:h1 {:on-click #(rf/dispatch [:stop-loop])} "LOOPS"])
+
+(defn player-controls []
+  [:div.player-controls])
+
+(defn content []
+  [:div.content [loop-list]])
+
 (defn main-panel []
-  [:div
+  [:div.container
    [player]
-   [:h1 {:on-click #(rf/dispatch [:stop-loop])} "LOOPS" ]
-   [loop-list]])
+   [player-controls]
+   [navbar]
+   [content]])
