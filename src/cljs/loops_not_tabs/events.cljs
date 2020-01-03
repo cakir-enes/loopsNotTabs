@@ -77,10 +77,22 @@
  :player-ready
  (fn [{:keys [db]} [_ player]]
    (println "Player is ready")
-   (.on player "paused" (fn []  (assoc db :playing? false)))
-   (.on player "playing" (fn []  (assoc db :playing? true)))
+   (.on player "paused" #(rf/dispatch [:paused]))
+   (.on player "playing" #(rf/dispatch [:playing]))
    {:db (assoc db :player player)
     :load-video player}))
+
+(rf/reg-event-db 
+ :playing
+ (fn [db _]
+   (println  "STARTED PLAYING")
+   (assoc db :playing? true)))
+
+(rf/reg-event-db
+ :paused
+ (fn [db _]
+   (assoc db :playing? false)))
+
 
 (rf/reg-fx
  :load-video
