@@ -9,6 +9,7 @@ body {
 
 .player-container {
   position: relative;
+  // top: 0;
   padding-top: 56.25%;
 
   #player {
@@ -22,52 +23,74 @@ body {
 
 .loops {
   display: grid;
-  // grid-template-columns: 1fr 1fr;
-  // grid-template-rows: auto;
-}
-
-.loop {
-  display: grid;
-  grid-template-columns: 80px 1fr;
-  grid-template-rows: 50px 50px;
-  width: 300px;
-  background: linear-gradient(0deg, #E3EDF7, #E3EDF7);
-  border-radius: 16px;
-  cursor: pointer;
-
-  padding-left: 12px;
-  padding-right: 12px;
+  grid-template-rows: 50px 1fr;
+  padding: 0;
+  text-align: center;
   
-  &:hover, &.active {
-    box-shadow: 6px 2px 16px rgba(136, 165, 191, 0.48), 4px 4px 22px rgba(18, 46, 101, 0.16), -6px -2px 16px rgba(255, 255, 255, 0.8), inset -2px -2px 14px rgba(255, 255, 255, 0.2);
+  
+  * {
+    padding-right: 12px;
+    padding-left: 12px;
   }
 
-  
-
-  
-
-  h4 {
-    margin-top: 12px;
-   
-    font-size: 18px;
-    
-    &.shortcut {
-      text-align: end;
-      color: #8CA2B7;
-      font-size: 14px;
-    }
-    
-    &.label {
-      color: #8CA2B7;
-      font-size: 14px;
-      text-justify:distribute;
-      margin-bottom: 0;
-    }
-    
-    &.time {
-      text-align: end;
-    }
+  .header {
+    display: flex;  
+    justify-content: space-between;
   }
 
+  ul {
+    // display: grid;
+    // grid-template-rows: 1fr 1fr;
+    max-height: 36vh;
+    overflow: hidden;
+    overflow-y: auto;
+    
+    // overflow: hidden;
+    // overflow-y: scroll;
+  }
+
+
+
+  .loop {
+    
+    display: flex;
+    justify-content: space-between;
+    // margin-top: 12px;
+    
+    background: linear-gradient(0deg, #E3EDF7, #E3EDF7);
+    border-radius: 16px;
+    cursor: pointer;
   
+    
+    &:hover, &.active {
+      box-shadow: 6px 2px 16px rgba(136, 165, 191, 0.48), 4px 4px 22px rgba(18, 46, 101, 0.16), -6px -2px 16px rgba(255, 255, 255, 0.8), inset -2px -2px 14px rgba(255, 255, 255, 0.2);
+    }  
+  
+    h4 {
+      // margin-top: 12px;
+     
+      font-size: 18px;
+      
+      &.shortcut {
+        // text-align: end;
+        color: #8CA2B7;
+        font-size: 14px;
+      }
+      
+      &.label {
+        color: #8CA2B7;
+        font-size: 14px;
+        // text-align: center;
+        margin-bottom: 0;
+      }
+      
+      &.time {
+        // text-align: end;
+      }
+    }
+  
+    
+  }
 }
+
+
