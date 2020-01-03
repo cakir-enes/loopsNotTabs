@@ -11,3 +11,13 @@
  :active-loop
  (fn [db]
    (:active-loop db)))
+
+(rf/reg-sub
+ :playing?
+ (fn [db]
+   (:playing? db)))
+
+(rf/reg-sub
+ :recording?
+ (fn [db]
+   (:recording db)))

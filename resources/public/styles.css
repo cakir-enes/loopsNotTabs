@@ -43,9 +43,33 @@ body {
 
 .player-controls {
   grid-area: controls;
-  background: red;
   width: 100%;
   height: 50px;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.player-controls input {
+  display: block;
+  margin-top: 4px;
+  margin-left: 10px;
+  stroke-width: 1;
+  padding: 6px;
+  border-radius: 24px;
+  background: -webkit-gradient(linear, left bottom, left top, from(#E3EDF7), to(#E3EDF7));
+  background: linear-gradient(0deg, #E3EDF7, #E3EDF7);
+  width: 32px;
+  height: 32px;
+}
+
+.player-controls input:hover {
+  background: linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
 }
 
 .content {
@@ -82,11 +106,28 @@ body {
   }
 }
 
+.content ul li:hover {
+  background: linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
+}
+
 .navbar {
   grid-area: navbar;
   margin-top: 8px;
   margin-bottom: 0;
   margin-left: 12px;
+  position: relative;
+  padding-left: 1.25em;
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0.30em;
+  left: 0;
+  width: 1em;
+  height: 0.125em;
+  border-top: 0.375em double #000;
+  border-bottom: 0.125em solid #000;
 }
 
 .loops {

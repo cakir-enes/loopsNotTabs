@@ -62,11 +62,16 @@
 (rf/reg-event-db
  :stop-loop
  (fn [db [_]]
-   (println "STOPPING LOOP")
    (js/clearInterval (:looping? db))
    (-> db 
        (assoc :looping? nil)
        (assoc :active-loop nil))))
+
+(rf/reg-event-db
+ :restart
+ (fn [db _]
+   (.seek (:player db) (or (:begin (:active-loop db)) 0))
+   db))
 
 (rf/reg-event-fx
  :player-ready
