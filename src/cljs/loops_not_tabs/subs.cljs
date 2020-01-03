@@ -21,3 +21,8 @@
  :recording?
  (fn [db]
    (:recording? db)))
+
+(rf/reg-sub
+ :playback-rate
+ (fn [db]
+   (:playback-rate db)))

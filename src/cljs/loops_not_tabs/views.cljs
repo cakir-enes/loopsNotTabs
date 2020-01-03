@@ -36,11 +36,9 @@
     [:div.loops 
      [:div.header [:h4 "N"] [:h4 "I"]  [:h4 "P"] ]
      [:ul
-      
       (doall (map-indexed
               (fn [i loop]
                 ^{:key i}
-
                 [:li.loop {:on-click (fn []
                                        (println "Trying play loop")
                                        (rf/dispatch [:play-loop (assoc loop :idx i)]))
@@ -55,13 +53,16 @@
 
 (defn player-controls []
   (let [rec? @(rf/subscribe [:recording?])
-        playing? @(rf/subscribe [:playing?])]
+        playing? @(rf/subscribe [:playing?])
+        playback @(rf/subscribe [:playback-rate])
+        rate (fn [rate text] [:h4 {:on-click #(rf/dispatch [:playback-change rate])  :class (when (= playback rate) "active")} text])]
     [:div.player-controls
      [:input {:type "image" :on-click #(rf/dispatch [:restart]) :src "icons/restart.svg"}]
      [:input {:type "image" :on-click #(rf/dispatch [:backward]) :src "icons/forward.svg" :style {:transform "rotate(180deg)"}}]
      [:input {:type "image" :on-click #(rf/dispatch [:toggle-player]) :src (if playing? "icons/pause.png" "icons/play.svg") }]
      [:input {:type "image" :on-click #(rf/dispatch [:forward]) :src "icons/forward.svg"}]
-     [:input {:type "image" :on-click #(rf/dispatch [:toggle-loop-rec]) :src (if rec? "icons/loop-rec.png" "icons/loop.png")}]]))
+     [:input {:type "image" :on-click #(rf/dispatch [:toggle-loop-rec]) :src (if rec? "icons/loop-rec.png" "icons/loop.png")}]
+     [:div.playback  [rate 0.25 ".25"] [rate 0.5 ".50"] [ rate 1 " 1 "]]]))
 
 (defn content []
   [:div.content [loop-list]])

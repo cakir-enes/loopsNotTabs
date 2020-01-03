@@ -73,12 +73,20 @@
    (.seek (:player db) (or (:begin (:active-loop db)) 0))
    db))
 
+(rf/reg-event-db
+ :playback-change
+ (fn [db [_ rate]]
+   (println "RATE CHANGED " (:playback-rate db) " -> " rate)
+   (.setPlaybackRate (:player db) rate)
+   (assoc db :playback-rate rate)))
+
 (rf/reg-event-fx
  :player-ready
  (fn [{:keys [db]} [_ player]]
    (println "Player is ready")
    (.on player "paused" #(rf/dispatch [:paused]))
    (.on player "playing" #(rf/dispatch [:playing]))
+   (.on player "playbackRateChange" #(rf/dispatch [:playback-change %]))
    {:db (assoc db :player player)
     :load-video player}))
 

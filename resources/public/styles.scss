@@ -74,6 +74,27 @@ body {
       background:  linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
     }
   }
+
+  .playback {
+    position: relative;
+    &::before {
+      content: "Speed:";
+      display: inline;
+      position: absolute;
+      left: 10px;
+      top: 10px;
+      font-size: 11px;
+      color: gray;
+    }
+    display: flex;
+    h4 {
+      margin-left: 8px;
+      cursor: pointer;
+      &.active {
+       color: seagreen;
+      }
+    }
+  }
 }
 
 .content {

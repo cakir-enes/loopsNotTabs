@@ -72,6 +72,32 @@ body {
   background: linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
 }
 
+.player-controls .playback {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.player-controls .playback::before {
+  content: "Speed:";
+  display: inline;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  font-size: 11px;
+  color: gray;
+}
+
+.player-controls .playback h4 {
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.player-controls .playback h4.active {
+  color: seagreen;
+}
+
 .content {
   grid-area: content;
 }
