@@ -41,7 +41,7 @@
            (assoc :recording? false)
            (assoc :rec-loop nil)
            (update :loops #(conj % {:begin (:begin (:rec-loop db)) :end curr-time})))
-       (-> db 
+       (-> db
            (assoc :recording? true)
            (assoc :rec-loop {:begin curr-time}))))))
 

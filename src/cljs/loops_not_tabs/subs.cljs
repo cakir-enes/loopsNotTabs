@@ -20,4 +20,4 @@
 (rf/reg-sub
  :recording?
  (fn [db]
-   (:recording db)))
+   (:recording? db)))
