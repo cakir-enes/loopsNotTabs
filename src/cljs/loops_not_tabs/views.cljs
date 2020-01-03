@@ -61,7 +61,7 @@
      [:input {:type "image" :on-click #(rf/dispatch [:backward]) :src "icons/forward.svg" :style {:transform "rotate(180deg)"}}]
      [:input {:type "image" :on-click #(rf/dispatch [:toggle-player]) :src (if playing? "icons/pause.png" "icons/play.svg") }]
      [:input {:type "image" :on-click #(rf/dispatch [:forward]) :src "icons/forward.svg"}]
-     [:input {:type "image" :on-click #(rf/dispatch [:toggle-loop-rec]) :src (if rec? "icons/rec-loop.png" "icons/loop.png")}]]))
+     [:input {:type "image" :on-click #(rf/dispatch [:toggle-loop-rec]) :src (if rec? "icons/loop-rec.png" "icons/loop.png")}]]))
 
 (defn content []
   [:div.content [loop-list]])
