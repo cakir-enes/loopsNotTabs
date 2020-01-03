@@ -47,7 +47,8 @@
               loops))]]))
 
 (defn navbar []
-   [:h1 {:on-click #(rf/dispatch [:stop-loop])} "LOOPS"])
+  
+  [:h1.navbar {:on-click #(rf/dispatch [:stop-loop])} "LOOPS"])
 
 (defn player-controls []
   [:div.player-controls])

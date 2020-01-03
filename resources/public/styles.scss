@@ -1,33 +1,36 @@
-@import url('https://fonts.googleapis.com/css?family=Righteous&display=swap');
-
+@import url("https://fonts.googleapis.com/css?family=Righteous&display=swap");
 
 @mixin for-portrait {
-  @media (min-width: 100px) { @content; }
+  @media (min-width: 100px) {
+    @content;
+  }
 }
 @mixin for-landscape {
-  @media (min-width: 1200px) { @content; }
+  @media (min-width: 1200px) {
+    @content;
+  }
 }
 
-
 body {
-  font-family: 'Righteous', cursive;
-  background: #EBF3FA;
-  color: #31456A;
+  font-family: "Righteous", cursive;
+  background: #ebf3fa;
+  color: #31456a;
+  margin: 0;
 }
 
 .container {
   display: grid;
 
-   @include for-portrait {
+  @include for-portrait {
     grid-template-areas:
       "player player"
       "navbar controls"
       "content content";
-  } 
+  }
 
   @include for-landscape {
     grid-template-columns: 280px 1fr;
-    grid-template-rows: 80px 1fr 50px;
+    grid-template-rows: 60px 1fr 50px;
     grid-template-areas:
       "navbar player"
       "content player"
@@ -54,10 +57,22 @@ body {
   background: red;
   width: 100%;
   height: 50px;
-}  
+}
 
 .content {
   grid-area: content;
+
+  &::before {
+    
+      display: block;
+      content: "";
+      width: 100%;
+      height: 20px;
+      background: linear-gradient(75deg, #ffffff -30.86%, #ecf1f7 -10.72%, #cfdceb 112.31%);
+      box-shadow: inset 4px 4px 6px rgba(18, 46, 101, 0.1), inset -4px -4px 4px rgba(255, 255, 255, 0.7);
+      margin: 0;
+    
+  }
 
   ul {
     list-style: none;
@@ -73,64 +88,66 @@ body {
   }
 }
 
+.navbar {
+  grid-area: navbar;
+  margin-top: 8px;
+  margin-bottom: 0;
+  margin-left: 12px;
+}
+
 .loops {
   display: grid;
   grid-template-rows: 50px 1fr;
   padding: 0;
   text-align: center;
-  
-  
+
   * {
     padding-right: 12px;
     padding-left: 12px;
   }
 
   .header {
-    display: flex;  
+    display: flex;
     justify-content: space-between;
   }
 
-
   .loop {
-    
     display: flex;
     justify-content: space-between;
     // margin-top: 12px;
-    
-    background: linear-gradient(0deg, #E3EDF7, #E3EDF7);
+
+    background: linear-gradient(0deg, #e3edf7, #e3edf7);
     border-radius: 16px;
     cursor: pointer;
     margin: 0;
-    
-    &:hover, &.active {
-      box-shadow: 6px 2px 16px rgba(136, 165, 191, 0.48), 4px 4px 22px rgba(18, 46, 101, 0.16), -6px -2px 16px rgba(255, 255, 255, 0.8), inset -2px -2px 14px rgba(255, 255, 255, 0.2);
-    }  
-  
+
+    &:hover,
+    &.active {
+      box-shadow: 6px 2px 16px rgba(136, 165, 191, 0.48), 4px 4px 22px rgba(18, 46, 101, 0.16),
+        -6px -2px 16px rgba(255, 255, 255, 0.8), inset -2px -2px 14px rgba(255, 255, 255, 0.2);
+    }
+
     h4 {
       // margin-top: 12px;
-     
+
       font-size: 14px;
-      
+
       &.shortcut {
         // text-align: end;
-        color: #8CA2B7;
+        color: #8ca2b7;
         font-size: 14px;
       }
-      
+
       &.label {
-        color: #8CA2B7;
+        color: #8ca2b7;
         font-size: 14px;
         // text-align: center;
         margin-bottom: 0;
       }
-      
+
       &.time {
         // text-align: end;
       }
     }
-  
-    
   }
 }
-
-
