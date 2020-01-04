@@ -53,6 +53,7 @@
  (fn [db [_ loop]]
    (when (:looping? db) (js/clearInterval (:looping? db)))
    (.seek (:player db) (:begin loop))
+   (println "ACTIVE_LOOP: " (:index (:active-loop db)))
    (-> db
        (assoc :looping? (js/setInterval (fn [] 
                                           (let [player (:player db)

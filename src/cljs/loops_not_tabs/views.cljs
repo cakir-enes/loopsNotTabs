@@ -39,15 +39,12 @@
                ^{:key i}
                [:li.loop {:on-click (fn []
                                       (println "TRIGER")
-                                      (rf/dispatch [:play-loop loop]))
-                          :class (when (= (:idx active-loop) i) "active")}
-                [:h4.main (str "LOOP " i)]
+                                      (rf/dispatch [:play-loop (assoc loop :index i)]))
+                          :class (when (=  (:index active-loop) i) "active")}
+                [:h4.main (str "Loop " i)]
                 [:h4.remove "X"]
                 [:h4.interval (format-loop loop)]
-                [:h4.label (format-time (:practise loop))]
-                ]
-               
-               )
+                [:h4.label (format-time (:practise loop))]])
              loops))]))
 
 (defn navbar []

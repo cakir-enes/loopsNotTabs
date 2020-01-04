@@ -173,12 +173,10 @@ body {
     background: linear-gradient(0deg, #e3edf7, #e3edf7);
     border-radius: 16px;
     cursor: pointer;
-    // margin: 0;
 
-    &:hover,
+    
     &.active {
-      box-shadow: 6px 2px 16px rgba(136, 165, 191, 0.48), 4px 4px 22px rgba(18, 46, 101, 0.16),
-        -6px -2px 16px rgba(255, 255, 255, 0.8), inset -2px -2px 14px rgba(255, 255, 255, 0.2);
+      background:  linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
     }
     
     h4 {
