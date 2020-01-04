@@ -26,3 +26,8 @@
  :playback-rate
  (fn [db]
    (:playback-rate db)))
+
+(rf/reg-sub
+ :page
+ (fn [db]
+   (:page db)))

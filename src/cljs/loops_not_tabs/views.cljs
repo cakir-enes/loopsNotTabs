@@ -1,9 +1,10 @@
 (ns loops-not-tabs.views
   (:require
    [re-frame.core :as rf]
-  
+   
    [loops-not-tabs.subs :as subs]
    [reagent.core :as r]
+   [clojure.string :refer [replace]]
    ["yt-player" :as YTPlayer]))
 
 
@@ -46,8 +47,7 @@
                   [:h4.label {:on-click #(play-loop l)} (format-time (:practise l))]]))
              loops))]))
 
-(defn navbar []
-  [:h1.navbar {:on-click #(rf/dispatch [:stop-loop])} "Loops"])
+
 
 (defn player-controls []
   (let [rec? @(rf/subscribe [:recording?])
@@ -64,8 +64,37 @@
      [:input {:type "image" :on-click #(rf/dispatch [:toggle-loop-rec]) :src (if rec? "icons/loop-rec.png" "icons/loop.png")}]
      [:div.playback  [rate 0.25 ".25"] [rate 0.5 ".50"] [ rate 1 " 1 "]]]))
 
+(defn load []
+  (let [inp (r/atom "")
+        ; https://www.youtube.com/watch?v=EashgVqboWo
+        on-change #(reset! inp (replace % #"(https?).*(\?v=)" ""))]
+    (fn []
+      [:form.load 
+       [:input {:type "text" :placeholder "Paste/Type YouTube url/id..."
+                :value @inp
+                :on-change #(on-change (-> % .-target .-value))}]
+       [:input  {:type "submit" :value "LOAD" :on-click #(rf/dispatch [:load-video @inp])}]])))
+
+(defn navbar []
+  (let [page @(rf/subscribe [:page])]
+    [:a.navbar {:on-click #(rf/dispatch [:change-page "Home"]) :href "#"} page]))
+
+(defn nav []
+  (let [goto #(rf/dispatch [:change-page %])
+        page (fn [p] [:a {:on-click #(goto p) :href "#"} p])]
+    [:nav.nav
+     (page "Library")
+     (page "Loops")
+     (page "Load")]))
+
 (defn content []
-  [:div.content [loop-list]])
+  (let [page @(rf/subscribe [:page])]
+    [:div.content 
+     (case page
+       "Loops" [loop-list]
+       "Load" [load]
+       "Library" [:h4 "Library"]
+       [nav])]))
 
 (defn main-panel []
   [:div.container

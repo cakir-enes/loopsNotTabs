@@ -11,4 +11,5 @@
    :title ""
    :recording? false
    :playing? false
+   :page "nav"
    :url ""})

@@ -62,8 +62,7 @@ body {
   stroke-width: 1;
   padding: 2px;
   border-radius: 24px;
-  background: -webkit-gradient(linear, left bottom, left top, from(#E3EDF7), to(#E3EDF7));
-  background: linear-gradient(0deg, #E3EDF7, #E3EDF7);
+  background: #E3EDF7;
   width: 36px;
   height: 36px;
 }
@@ -148,6 +147,8 @@ body {
   margin-left: 12px;
   position: relative;
   padding-left: 1.25em;
+  font-size: 30px;
+  color: #31456a;
 }
 
 .navbar::before {
@@ -159,6 +160,71 @@ body {
   height: 0.125em;
   border-top: 0.375em double #000;
   border-bottom: 0.125em solid #000;
+  color: #E3EDF7;
+}
+
+.load {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 0 auto;
+  margin-top: 20%;
+}
+
+.load input {
+  font: inherit;
+  display: block;
+  text-align: center;
+}
+
+.load input[type="text"] {
+  font-size: 18px;
+  background: none;
+  width: 35%;
+  min-width: 240px;
+  outline: none;
+  border: none;
+  border-bottom: 2px solid #93B6DE;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+}
+
+.load input[type="submit"] {
+  background: none;
+  font-size: 18px;
+  border: none;
+  padding: 8px 25px 8px 25px;
+  cursor: pointer;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin-top: 12px;
+  border-radius: 16px;
+  border: 2px solid #31456a;
+}
+
+.load input[type="submit"]:hover {
+  background: linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
+}
+
+.nav {
+  font-size: 24px;
+}
+
+.nav a {
+  display: block;
+  max-width: 50%;
+  text-align: center;
+  margin: 10px auto;
+  padding: 8px 25px 8px 25px;
+  border-radius: 14px;
+  border: 2px solid #93B6DE;
 }
 
 .loops {

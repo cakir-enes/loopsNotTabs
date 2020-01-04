@@ -108,7 +108,12 @@
    (.on player "playing" #(rf/dispatch [:playing]))
    (.on player "playbackRateChange" #(rf/dispatch [:playback-change %]))
    {:db (assoc db :player player)
-    :load-video player}))
+    :load-video [player "GKSRyLdjsPA"]}))
+
+(rf/reg-event-fx
+ :load-video
+ (fn [{:keys [db]} [_ id]]
+   {:load-video [(:player db)  id]}))
 
 (rf/reg-event-db 
  :playing
@@ -124,9 +129,14 @@
 
 (rf/reg-fx
  :load-video
- (fn [player]
+ (fn [[player id]]
    (println "LOADING VID")
-   (.load player "GKSRyLdjsPA")))
+   (.load player id)))
+
+(rf/reg-event-db
+ :change-page
+ (fn [db [_ page]]
+   (assoc db :page page)))
 
 (rf/reg-fx
  :persist
