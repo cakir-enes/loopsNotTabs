@@ -150,14 +150,11 @@ body {
 
 .loops {
   display: grid;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: auto;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  column-gap: 20px;
+  row-gap: 10px;
   padding: 0;
-  text-align: center;
-
-  * {
-    padding-right: 12px;
-    padding-left: 12px;
-  }
 
   .header {
     display: flex;
@@ -165,42 +162,53 @@ body {
   }
 
   .loop {
-    display: flex;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 5fr 1fr;
+    
+    padding-right: 12px;
+    padding-left: 12px;
     justify-content: space-between;
-    // margin-top: 12px;
-
+    
     background: linear-gradient(0deg, #e3edf7, #e3edf7);
     border-radius: 16px;
     cursor: pointer;
-    margin: 0;
+    // margin: 0;
 
     &:hover,
     &.active {
       box-shadow: 6px 2px 16px rgba(136, 165, 191, 0.48), 4px 4px 22px rgba(18, 46, 101, 0.16),
         -6px -2px 16px rgba(255, 255, 255, 0.8), inset -2px -2px 14px rgba(255, 255, 255, 0.2);
     }
-
+    
     h4 {
-      // margin-top: 12px;
-
+      margin: 8px;
       font-size: 14px;
 
       &.shortcut {
-        // text-align: end;
-        color: #8ca2b7;
-        font-size: 14px;
+        // // text-align: end;
+        // color: #8ca2b7;
+        // font-size: 14px;
       }
 
       &.label {
         color: #8ca2b7;
         font-size: 14px;
-        // text-align: center;
+        text-align: end;
         margin-bottom: 0;
       }
 
-      &.time {
+      &.interval {
         // text-align: end;
+      }
+      &.remove {
+        text-align: end;
+        height: 100%;
+        &:hover {
+         color:  firebrick;
+        }
       }
     }
   }
+  
 }

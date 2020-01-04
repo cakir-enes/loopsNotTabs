@@ -159,15 +159,14 @@ body {
 .loops {
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: 50px 1fr;
-      grid-template-rows: 50px 1fr;
+  -ms-grid-rows: auto;
+      grid-template-rows: auto;
+  -ms-grid-columns: (minmax(280px, 1fr))[auto-fill];
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  -webkit-column-gap: 20px;
+          column-gap: 20px;
+  row-gap: 10px;
   padding: 0;
-  text-align: center;
-}
-
-.loops * {
-  padding-right: 12px;
-  padding-left: 12px;
 }
 
 .loops .header {
@@ -180,9 +179,14 @@ body {
 }
 
 .loops .loop {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-rows: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+  -ms-grid-columns: 5fr 1fr;
+      grid-template-columns: 5fr 1fr;
+  padding-right: 12px;
+  padding-left: 12px;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
@@ -190,7 +194,6 @@ body {
   background: linear-gradient(0deg, #e3edf7, #e3edf7);
   border-radius: 16px;
   cursor: pointer;
-  margin: 0;
 }
 
 .loops .loop:hover, .loops .loop.active {
@@ -199,17 +202,23 @@ body {
 }
 
 .loops .loop h4 {
-  font-size: 14px;
-}
-
-.loops .loop h4.shortcut {
-  color: #8ca2b7;
+  margin: 8px;
   font-size: 14px;
 }
 
 .loops .loop h4.label {
   color: #8ca2b7;
   font-size: 14px;
+  text-align: end;
   margin-bottom: 0;
+}
+
+.loops .loop h4.remove {
+  text-align: end;
+  height: 100%;
+}
+
+.loops .loop h4.remove:hover {
+  color: firebrick;
 }
 /*# sourceMappingURL=styles.css.map */
