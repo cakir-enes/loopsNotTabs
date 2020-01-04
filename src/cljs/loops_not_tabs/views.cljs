@@ -32,19 +32,18 @@
 
 (defn loop-list []
   (let [loops @(rf/subscribe [:loops])
-        active-loop @(rf/subscribe [:active-loop])]
+        active-loop @(rf/subscribe [:active-loop])
+        play-loop #(rf/dispatch [:play-loop %])]
     [:ul.loops
      (doall (map-indexed
              (fn [i loop]
-               ^{:key i}
-               [:li.loop {:on-click (fn []
-                                      (println "TRIGER")
-                                      (rf/dispatch [:play-loop (assoc loop :index i)]))
-                          :class (when (=  (:index active-loop) i) "active")}
-                [:h4.main (str "Loop " i)]
-                [:h4.remove "X"]
-                [:h4.interval (format-loop loop)]
-                [:h4.label (format-time (:practise loop))]])
+               (let [l (assoc loop :index i)]
+                 ^{:key l}
+                 [:li.loop {:class (when (=  (:index active-loop) i) "active")}
+                  [:h4.main  {:on-click #(play-loop l)} (str "Loop " i)]
+                  [:h4.remove {:on-click #(rf/dispatch [:remove-loop l])} "X"]
+                  [:h4.interval {:on-click #(play-loop l)} (format-loop l)]
+                  [:h4.label {:on-click #(play-loop l)} (format-time (:practise l))]]))
              loops))]))
 
 (defn navbar []

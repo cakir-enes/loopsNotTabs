@@ -4,7 +4,7 @@
   {:name "re-frame"
    :library []
    :player nil
-   :loops []
+   :loops (vec [])
    :active-loop {}
    :rec-loop {}
    :playback-rate 1

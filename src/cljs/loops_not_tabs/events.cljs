@@ -70,6 +70,23 @@
        (assoc :looping? nil)
        (assoc :active-loop nil))))
 
+
+(defn- vec-remove
+  "remove elem in coll"
+  [pos coll]
+  (vec (concat (subvec coll 0 pos) (subvec coll (inc pos)))))
+
+(rf/reg-event-fx
+ :remove-loop
+ "Remove given loop"
+ (fn [{:keys [db]} [_ rem-loop]]
+   (let [remove-fn (fn [loops]
+                     (vec (sort-by :begin (vec-remove (:index rem-loop) loops))))]
+     (if (= (-> db :active-loop :index) (:index rem-loop))
+       {:db (update db :loops remove-fn)
+        :dispatch [:stop-loop]}
+       {:db (update db :loops remove-fn)}))))
+
 (rf/reg-event-db
  :restart
  (fn [db _]
