@@ -1,8 +1,7 @@
 (ns loops-not-tabs.events
   (:require
    [re-frame.core :as rf]
-   [loops-not-tabs.db :as db]
-   ))
+   [loops-not-tabs.db :as db]))
 
 (rf/reg-event-db
  ::initialize-db
@@ -31,19 +30,22 @@
          (.play player)
          (assoc db :playing? true))))))
 
-(rf/reg-event-db
+(rf/reg-event-fx
  :toggle-loop-rec
- (fn [db _]
+ [(rf/inject-cofx :video-id)]
+ (fn [{:keys [db video-id]} _]
    (let [curr-time (.getCurrentTime (:player db))]
      (println "Toggled Loop Rec: CurrTime:" curr-time)
      (if (:recording? db)
-       (-> db
-           (assoc :recording? false)
-           (assoc :rec-loop nil)
-           (update :loops #(conj % {:begin (:begin (:rec-loop db)) :end curr-time})))
-       (-> db
-           (assoc :recording? true)
-           (assoc :rec-loop {:begin curr-time}))))))
+       (let [new-loops (conj (:loops db) {:begin (:begin (:rec-loop db)) :end curr-time})]
+         {:db (-> db
+                  (assoc :recording? false)
+                  (assoc :rec-loop nil)
+                  (assoc :loops new-loops))
+          :persist [(str "loops:" video-id) new-loops]})
+       {:db (-> db
+                (assoc :recording? true)
+                (assoc :rec-loop {:begin curr-time}))}))))
 
 
 (rf/reg-event-db
@@ -107,3 +109,14 @@
  (fn [player]
    (println "LOADING VID")
    (.load player "GKSRyLdjsPA")))
+
+(rf/reg-fx
+ :persist
+ (fn [[key val]]
+   (println "Saving: " key " -> " val )
+   (.setItem (.-localStorage js/window) key val)))
+
+(rf/reg-cofx
+ :video-id
+ (fn [cofx _]
+   (assoc cofx :video-id (.-videoId (-> cofx :db :player)))))
