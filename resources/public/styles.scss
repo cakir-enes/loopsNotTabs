@@ -73,6 +73,10 @@ body {
     &:hover {
       background:  linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
     }
+    &.disabled {
+      pointer-events: none;
+      opacity: 0;
+    }
   }
 
   .playback {

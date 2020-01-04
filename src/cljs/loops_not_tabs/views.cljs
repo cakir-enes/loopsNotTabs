@@ -53,8 +53,10 @@
   (let [rec? @(rf/subscribe [:recording?])
         playing? @(rf/subscribe [:playing?])
         playback @(rf/subscribe [:playback-rate])
+        looping? @(rf/subscribe [:active-loop])
         rate (fn [rate text] [:h4 {:on-click #(rf/dispatch [:playback-change rate])  :class (when (= playback rate) "active")} text])]
     [:div.player-controls
+     [:input {:type "image" :on-click #(rf/dispatch [:stop-loop]) :src "icons/cross.png" :class (when-not looping? "disabled")}]
      [:input {:type "image" :on-click #(rf/dispatch [:restart]) :src "icons/restart.svg"}]
      [:input {:type "image" :on-click #(rf/dispatch [:backward]) :src "icons/forward.svg" :style {:transform "rotate(180deg)"}}]
      [:input {:type "image" :on-click #(rf/dispatch [:toggle-player]) :src (if playing? "icons/pause.png" "icons/play.svg") }]

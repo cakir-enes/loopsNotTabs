@@ -72,6 +72,11 @@ body {
   background: linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
 }
 
+.player-controls input.disabled {
+  pointer-events: none;
+  opacity: 0;
+}
+
 .player-controls .playback {
   position: relative;
   display: -webkit-box;
