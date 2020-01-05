@@ -67,12 +67,17 @@
 (defn load []
   (let [inp (r/atom "")
         ; https://www.youtube.com/watch?v=EashgVqboWo
-        on-change #(reset! inp (replace % #"(https?).*(\?v=)" ""))]
+        ;hacky
+        on-paste (fn [url] (js/setTimeout #(reset! inp (second 
+                                                        (first (re-seq #"^.*(?:youtu.be/|v/|e/|u/\w+/|embed/|v=)([^#&?]*).*"
+                                                                       url)))) 5))
+        on-change #(reset! inp %)]
     (fn []
-      [:form.load 
+      [:form.load
        [:input {:type "text" :placeholder "Paste/Type YouTube url/id..."
                 :value @inp
-                :on-change #(on-change (-> % .-target .-value))}]
+                :on-change #(on-change (-> % .-target .-value))
+                :on-paste (fn [e] (on-paste (.getData (.-clipboardData e) "text")))}]
        [:input  {:type "submit" :value "LOAD" :on-click #(rf/dispatch [:load-video @inp])}]])))
 
 (defn navbar []

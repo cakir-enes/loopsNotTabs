@@ -2,7 +2,7 @@
 
 (def default-db
   {:name "re-frame"
-   :library []
+   :library {}
    :player nil
    :loops (vec [])
    :active-loop {}

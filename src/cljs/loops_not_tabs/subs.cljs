@@ -31,3 +31,8 @@
  :page
  (fn [db]
    (:page db)))
+
+(rf/reg-sub
+ :library
+ (fn [db]
+   (:library db)))
