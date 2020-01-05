@@ -6,7 +6,7 @@
   }
 }
 @mixin for-landscape {
-  @media (min-width: 1200px) {
+  @media (min-width: 1400px) {
     @content;
   }
 }
@@ -44,6 +44,7 @@ body {
   position: relative;
   
   // top: 0;
+  // opacity: 100%;
   padding-top: 56.25%;
   #player {
     position: absolute;
@@ -166,7 +167,7 @@ body {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  margin-top: 20%;
+  // margin-top: 2px;
   & input {
     font: inherit;
     display: block;
