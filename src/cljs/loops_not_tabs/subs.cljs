@@ -18,7 +18,7 @@
    (:playing? db)))
 
 (rf/reg-sub
- :recording?
+ ::recording?
  (fn [db]
    (:recording? db)))
 

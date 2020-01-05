@@ -1,18 +1,17 @@
 (ns loops-not-tabs.views
   (:require
    [re-frame.core :as rf]
-   
    [loops-not-tabs.subs :as subs]
    [reagent.core :as r]
-   [clojure.string :refer [replace]]
    ["yt-player" :as YTPlayer]))
 
+(defonce height (r/atom "100%"))
 
 (defn player []
   (let [listener #(rf/dispatch [:keydown %])]
    (r/create-class
     {:display-name "Player"
-     :component-did-mount (fn [_] 
+     :component-did-mount (fn [_]
                             (rf/dispatch [:player-ready (new YTPlayer "#player")])
                             (.removeEventListener js/document "keydown" listener) ; prevent adding shit tons of listener
                             (.addEventListener js/document "keydown" listener))
@@ -50,7 +49,7 @@
 
 
 (defn player-controls []
-  (let [rec? @(rf/subscribe [:recording?])
+  (let [rec? @(rf/subscribe [::subs/recording?])
         playing? @(rf/subscribe [:playing?])
         playback @(rf/subscribe [:playback-rate])
         looping? @(rf/subscribe [:active-loop])
@@ -92,14 +91,42 @@
      (page "Loops")
      (page "Load")]))
 
+(defn video-card [[id meta]]
+  [:div.video-card 
+   [:h4 id]
+   [:img {:src (str "//img.youtube.com/vi/" id "/mqdefault.jpg")}]])
+
+(defn library []
+  (let [vids @(rf/subscribe [:library])]
+    (println "LIB: " vids)
+    [:ul.library 
+     (for [vid vids]
+       ^{:key (first vid)}
+       [video-card vid])]))
+
 (defn content []
-  (let [page @(rf/subscribe [:page])]
-    [:div.content 
-     (case page
-       "Loops" [loop-list]
-       "Load" [load]
-       "Library" [:h4 "Library"]
-       [nav])]))
+  (let [resizer #(reset! height
+                        (str (- (.-innerHeight js/window)
+                                60
+                                (.-top (.getBoundingClientRect (.getElementById js/document "content"))))
+                             "px"))]
+    (r/create-class
+      {:component-did-mount (fn [] 
+                              (.addEventListener js/window "resize" resizer)
+                              (resizer))
+       :component-will-unmount #(.removeEventListener js/window "resize" resizer)
+       :reagent-render (fn []
+                         (let [page @(rf/subscribe [:page])]
+                           [:div#content.content {:style {:max-height @height}}
+                            (case page
+                              "Loops" [loop-list]
+                              "Load" [load]
+                              "Library" [library]
+                              [nav])]))})))
+
+; (defn content []
+;   [:div])
+  
 
 (defn main-panel []
   [:div.container

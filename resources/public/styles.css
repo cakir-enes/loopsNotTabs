@@ -21,8 +21,8 @@ body {
   .container {
     -ms-grid-columns: 280px 1fr;
         grid-template-columns: 280px 1fr;
-    -ms-grid-rows: 60px 1fr 50px;
-        grid-template-rows: 60px 1fr 50px;
+    -ms-grid-rows: 60px calc(100vh - 110px) 50px;
+        grid-template-rows: 60px calc(100vh - 110px) 50px;
         grid-template-areas: "navbar player" "content player" "content controls";
   }
 }
@@ -120,20 +120,10 @@ body {
 .content ul {
   list-style: none;
   padding: 0;
+  height: 95%;
   overflow: hidden;
-  overflow-y: auto;
-}
-
-@media (min-width: 100px) {
-  .content ul {
-    max-height: 36vh;
-  }
-}
-
-@media (min-width: 1200px) {
-  .content ul {
-    max-height: 81vh;
-  }
+  overflow-y: scroll;
+  max-height: inherit;
 }
 
 .content ul li:hover {
@@ -234,19 +224,21 @@ body {
   background: linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
 }
 
+.library,
 .loops {
   display: -ms-grid;
   display: grid;
-  -ms-grid-rows: auto;
-      grid-template-rows: auto;
   -ms-grid-columns: (minmax(280px, 1fr))[auto-fill];
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   -webkit-column-gap: 20px;
           column-gap: 20px;
   row-gap: 10px;
   padding: 0;
+  overflow: hidden;
+  height: inherit;
 }
 
+.library .header,
 .loops .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -256,6 +248,7 @@ body {
           justify-content: space-between;
 }
 
+.library .loop,
 .loops .loop {
   display: -ms-grid;
   display: grid;
@@ -272,17 +265,22 @@ body {
   background: linear-gradient(0deg, #e3edf7, #e3edf7);
   border-radius: 16px;
   cursor: pointer;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
+.library .loop.active,
 .loops .loop.active {
   background: linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
 }
 
+.library .loop h4,
 .loops .loop h4 {
   margin: 8px;
   font-size: 14px;
 }
 
+.library .loop h4.label,
 .loops .loop h4.label {
   color: #8ca2b7;
   font-size: 14px;
@@ -290,12 +288,51 @@ body {
   margin-bottom: 0;
 }
 
+.library .loop h4.remove,
 .loops .loop h4.remove {
   text-align: end;
   height: 100%;
 }
 
+.library .loop h4.remove:hover,
 .loops .loop h4.remove:hover {
   color: firebrick;
+}
+
+.library .video-card,
+.loops .video-card {
+  margin: 5px auto;
+  padding: 20px;
+  width: 100%;
+  padding-top: 0;
+  display: block;
+  border: 1px solid rgba(18, 46, 101, 0.1);
+  border-radius: 40px;
+  cursor: pointer;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.library .video-card h4,
+.loops .video-card h4 {
+  margin-left: 14px;
+}
+
+.library .video-card img,
+.loops .video-card img {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.library .video-card:hover,
+.loops .video-card:hover {
+  -webkit-transform: scale(0.9, 0.9);
+          transform: scale(0.9, 0.9);
+  background: linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
+  -webkit-box-shadow: 5px 5px 20px 7px rgba(0, 0, 0, 0.25), -5px -5px 15px 7px rgba(0, 0, 0, 0.22);
+          box-shadow: 5px 5px 20px 7px rgba(0, 0, 0, 0.25), -5px -5px 15px 7px rgba(0, 0, 0, 0.22);
 }
 /*# sourceMappingURL=styles.css.map */

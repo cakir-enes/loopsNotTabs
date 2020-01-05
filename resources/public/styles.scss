@@ -22,6 +22,7 @@ body {
   display: grid;
 
   @include for-portrait {
+    // grid-template-rows: 56.5vh 60px calc(53.5vh - 60px);
     grid-template-areas:
       "player player"
       "navbar controls"
@@ -30,7 +31,7 @@ body {
 
   @include for-landscape {
     grid-template-columns: 280px 1fr;
-    grid-template-rows: 60px 1fr 50px;
+    grid-template-rows: 60px calc(100vh - 110px) 50px;
     grid-template-areas:
       "navbar player"
       "content player"
@@ -103,9 +104,8 @@ body {
 
 .content {
   grid-area: content;
-
+  
   &::before {
-    
       display: block;
       content: "";
       width: 100%;
@@ -113,23 +113,28 @@ body {
       background: linear-gradient(75deg, #ffffff -30.86%, #ecf1f7 -10.72%, #cfdceb 112.31%);
       box-shadow: inset 4px 4px 6px rgba(18, 46, 101, 0.1), inset -4px -4px 4px rgba(255, 255, 255, 0.7);
       margin: 0;
-    
   }
 
   ul {
     list-style: none;
     padding: 0;
-    @include for-portrait {
-      max-height: 36vh;
-    }
-    @include for-landscape {
-      max-height: 81vh;
-    }
+    height: 95%;
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: inherit;
+    // @include for-portrait {
+    //   max-height: inherit;
+    //   // max-height: 36vh;
+    // }
+    // @include for-landscape {
+    //   max-height: inherit;
+    //   // max-height: 81vh;
+    // }
     li:hover {
       background:  linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
     }
-    overflow: hidden;
-    overflow-y: auto;
+    // overflow: hidden;
+    // overflow-y: scroll;
   }
 }
 
@@ -215,14 +220,18 @@ body {
   }
 }
 
-.loops {
+.library,
+.loops  {
   display: grid;
-  grid-template-rows: auto;
+  // grid-template-rows: auto;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   column-gap: 20px;
   row-gap: 10px;
   padding: 0;
-
+  overflow: hidden;
+  height: inherit;
+  // background: black;
+  
   .header {
     display: flex;
     justify-content: space-between;
@@ -240,12 +249,17 @@ body {
     background: linear-gradient(0deg, #e3edf7, #e3edf7);
     border-radius: 16px;
     cursor: pointer;
-
+    transition: 0.4s;
     
     &.active {
       background:  linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
     }
-    
+    // &:hover {
+    //   transform: scale(0.9, 0.9);
+    //   background:  linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
+    //   box-shadow: 5px 5px 20px 7px rgba(0,0,0,0.25), 
+    //     -5px -5px 15px 7px rgba(0,0,0,0.22);
+    // }
     h4 {
       margin: 8px;
       font-size: 14px;
@@ -276,4 +290,37 @@ body {
     }
   }
   
+  .video-card {
+    margin: 5px auto;
+    padding: 20px;
+    width: 100%;
+    padding-top: 0;
+    display: block;
+    
+
+    // width: 300px;
+    // height: 300px;
+    border: 1px solid rgba(18, 46, 101, 0.1);
+    border-radius: 40px;
+    cursor: pointer;
+    transition: 0.4s;
+    & h4 {
+      // background: red;
+      margin-left: 14px;
+      // border-radius: 0px 0px 40px 40px;
+    }
+    & img {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+
+    &:hover {
+      transform: scale(0.9, 0.9);
+      background:  linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
+      box-shadow: 5px 5px 20px 7px rgba(0,0,0,0.25), 
+        -5px -5px 15px 7px rgba(0,0,0,0.22);
+    }
+  }
 }
