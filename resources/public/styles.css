@@ -154,13 +154,13 @@ body {
 .navbar::before {
   content: "";
   position: absolute;
-  top: 0.30em;
+  top: 0.40em;
   left: 0;
   width: 1em;
   height: 0.125em;
   border-top: 0.375em double #000;
   border-bottom: 0.125em solid #000;
-  color: #E3EDF7;
+  color: #31456a;
 }
 
 .load {
@@ -189,6 +189,7 @@ body {
   min-width: 240px;
   outline: none;
   border: none;
+  color: #17305e;
   border-bottom: 2px solid #93B6DE;
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
@@ -206,6 +207,7 @@ body {
       align-self: center;
   margin-top: 12px;
   border-radius: 16px;
+  color: #31456a;
   border: 2px solid #31456a;
 }
 
@@ -220,11 +222,16 @@ body {
 .nav a {
   display: block;
   max-width: 50%;
+  color: #31456a;
   text-align: center;
   margin: 10px auto;
   padding: 8px 25px 8px 25px;
   border-radius: 14px;
   border: 2px solid #93B6DE;
+}
+
+.nav a:hover {
+  background: linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
 }
 
 .loops {
