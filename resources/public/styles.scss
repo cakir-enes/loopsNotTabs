@@ -42,6 +42,7 @@ body {
 .player-container {
   grid-area: player;
   position: relative;
+  
   // top: 0;
   padding-top: 56.25%;
   #player {
@@ -118,7 +119,7 @@ body {
   ul {
     list-style: none;
     padding: 0;
-    height: 95%;
+    // height: 95%;
     overflow: hidden;
     overflow-y: scroll;
     max-height: inherit;
@@ -280,39 +281,35 @@ body {
       &.interval {
         // text-align: end;
       }
-      &.remove {
-        text-align: end;
-        height: 100%;
-        &:hover {
-         color:  firebrick;
-        }
-      }
+      
     }
   }
   
   .video-card {
-    margin: 5px auto;
-    padding: 20px;
-    width: 100%;
-    padding-top: 0;
-    display: block;
-    
-
-    // width: 300px;
-    // height: 300px;
+    display: grid;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin: 0;
+    grid-template-columns: 1fr 20px;
     border: 1px solid rgba(18, 46, 101, 0.1);
-    border-radius: 40px;
+    border-radius: 8px;
     cursor: pointer;
     transition: 0.4s;
+    max-height: 300px;
+    // text-align: center;
     & h4 {
-      // background: red;
-      margin-left: 14px;
-      // border-radius: 0px 0px 40px 40px;
+      margin-left: 5px;
+      margin-right: 5px;
+      margin-top: 5px;
     }
     & img {
+      grid-column: 1 / 3;
+      opacity: 90%;
+      display: block;
       width: 100%;
-      height: 100%;
-      border-radius: 20px;
+  max-width: 100%;
+      border-radius: 8px;
+      // margin: 10px;
       object-fit: cover;
     }
 
@@ -322,5 +319,12 @@ body {
       box-shadow: 5px 5px 20px 7px rgba(0,0,0,0.25), 
         -5px -5px 15px 7px rgba(0,0,0,0.22);
     }
+  }
+}
+
+.remove {
+  text-align: end;
+  &:hover {
+   color:  firebrick;
   }
 }

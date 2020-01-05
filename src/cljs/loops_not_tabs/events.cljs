@@ -93,6 +93,14 @@
         :dispatch [:stop-loop]}
        {:db (update db :loops remove-fn)}))))
 
+(rf/reg-event-fx
+ :remove-video
+ (fn [{:keys [db]} [_ id]]
+   (let [new-lib (dissoc (:library db) id)]
+     {:db (assoc db :library new-lib)
+      :remove (str "loops:" id)
+      :persist ["library" new-lib]})))
+
 (rf/reg-event-db
  :restart
  (fn [db _]
@@ -162,6 +170,12 @@
  (fn [[key val]]
    (println "Saving: " key " -> " val )
    (.setItem (.-localStorage js/window) key val)))
+
+(rf/reg-fx
+ :remove
+ (fn [key]
+   (println "Removing " key)
+   (.removeItem (.-localStorage js/window) key)))
 
 (rf/reg-cofx
  :video-id

@@ -94,6 +94,7 @@
 (defn video-card [[id meta]]
   [:div.video-card 
    [:h4 id]
+   [:h4.remove {:on-click #(rf/dispatch [:remove-video id])} "X "]
    [:img {:src (str "//img.youtube.com/vi/" id "/mqdefault.jpg")}]])
 
 (defn library []
