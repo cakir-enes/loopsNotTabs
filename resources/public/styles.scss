@@ -240,6 +240,7 @@ body {
   }
 
   .loop {
+    box-sizing: border-box;
     display: grid;
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 5fr 1fr;
@@ -263,7 +264,8 @@ body {
     //     -5px -5px 15px 7px rgba(0,0,0,0.22);
     // }
     h4 {
-      margin: 8px;
+      margin: 0;
+      padding: 8px;
       font-size: 14px;
 
       &.shortcut {

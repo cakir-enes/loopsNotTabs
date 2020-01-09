@@ -40,10 +40,10 @@
  [(rf/inject-cofx :video-id)]
  (fn [{:keys [db video-id]} _]
    (let [curr-time (.getCurrentTime (:player db))]
-     (println "Toggled Loop Rec: CurrTime:" curr-time)
+     (prn "Toggled Loop Rec: CurrTime:" curr-time)
      (if (:recording? db)
        (let [new-loops (conj (:loops db) {:begin (:begin (:rec-loop db)) :end curr-time})
-             first-loop? (and false (empty? (:loops db)))
+             first-loop? (empty? (:loops db))
              fxs {:db (-> db
                           (assoc :recording? false)
                           (assoc :rec-loop nil)
@@ -58,11 +58,11 @@
 (rf/reg-event-db
  :play-loop
  (fn [db [_ loop]]
+   (println "ACTIVE_LOOP: " (:index (:active-loop db)))
    (when (:looping? db) (js/clearInterval (:looping? db)))
    (.seek (:player db) (:begin loop))
-   (println "ACTIVE_LOOP: " (:index (:active-loop db)))
    (-> db
-       (assoc :looping? (js/setInterval (fn [] 
+       (assoc :looping? (js/setInterval (fn []
                                           (let [player (:player db)
                                                 diff (- (.getCurrentTime player) (:end loop))]
                                             (when (pos? diff) (.seek player (:begin loop)))))
@@ -83,11 +83,14 @@
   [pos coll]
   (vec (concat (subvec coll 0 pos) (subvec coll (inc pos)))))
 
+(defn drop-nth [n coll]
+  (keep-indexed #(when (not= %1 n) %2) coll))
+
 (rf/reg-event-fx
  :remove-loop
  (fn [{:keys [db]} [_ rem-loop]]
    (let [remove-fn (fn [loops]
-                     (vec (sort-by :begin (vec-remove (:index rem-loop) loops))))]
+                     (sort-by :begin (drop-nth (:index rem-loop) loops)))]
      (if (= (-> db :active-loop :index) (:index rem-loop))
        {:db (update db :loops remove-fn)
         :dispatch [:stop-loop]}
@@ -117,12 +120,15 @@
 (rf/reg-event-fx
  :load-video
  (fn [{:keys [db]} [_ opts]]
+   (prn "Loading vid " opts)
    (let [retry? (map? opts)
          id (if retry? (:id opts) opts)]
      (if retry?
        {:load-video [(:player db) id]}
        {:load-video [(:player db) id]
-        :db (assoc db :loops (get-item (str "loops:" id)))
+        :db (-> db
+                (assoc  :loops (get-item (str "loops:" id)))
+                (assoc :page "Loops"))
         :dispatch [:stop-loop]}))))
 
 (rf/reg-event-fx
@@ -150,15 +156,30 @@
  :new-video
  [(rf/inject-cofx :video-id)]
  (fn [{:keys [db video-id]} _]
+   (prn "SAVING NEW VIDEO")
    (let [new-lib (assoc (:library db) video-id nil)]
-     {:db new-lib
+     {:db (assoc db :library new-lib)
       :persist ["library" new-lib]})))
+
+(rf/reg-event-db
+ :forward
+ (fn [db _]
+   (.seek (:player db) (+ 3 (.getCurrentTime (:player db))))
+   db))
+
+(rf/reg-event-db
+ :backward
+ (fn [db _]
+   (.seek (:player db) (- (.getCurrentTime (:player db)) 3))
+   db))
 
 (rf/reg-fx
  :load-video
  (fn [[player id]]
    (println "LOADING VID")
-   (if player (.load player id) (js/setTimeout #(rf/dispatch [:load-video {:id id :retry? true}]))) 200))
+   (if player (.load player id) (js/setTimeout #(rf/dispatch [:load-video nil]))) 10))
+
+
 
 (rf/reg-event-db
  :change-page

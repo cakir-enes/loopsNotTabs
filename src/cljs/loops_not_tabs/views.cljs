@@ -93,9 +93,9 @@
 
 (defn video-card [[id meta]]
   [:div.video-card 
-   [:h4 id]
+   [:h4 {:on-click #(rf/dispatch [:load-video id])} id]
    [:h4.remove {:on-click #(rf/dispatch [:remove-video id])} "X "]
-   [:img {:src (str "//img.youtube.com/vi/" id "/mqdefault.jpg")}]])
+   [:img {:on-click #(rf/dispatch [:load-video id]) :src (str "//img.youtube.com/vi/" id "/mqdefault.jpg")}]])
 
 (defn library []
   (let [vids @(rf/subscribe [:library])]
