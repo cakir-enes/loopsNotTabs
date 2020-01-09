@@ -55,25 +55,36 @@ body {
   display: flex;
 }
 
-.player-controls input {
+.player-controls button {
+  font: inherit;
   display: block;
-  margin-top: 4px;
-  margin-left: 10px;
+  cursor: pointer;
+  margin-left: 2px;
   stroke-width: 1;
   padding: 2px;
-  border-radius: 24px;
   background: #E3EDF7;
-  width: 36px;
-  height: 36px;
 }
 
-.player-controls input:hover {
+.player-controls button:hover {
   background: linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
 }
 
-.player-controls input.disabled {
+.player-controls button.disabled {
   pointer-events: none;
   opacity: 0;
+}
+
+.player-controls button::after {
+  padding-bottom: 2px;
+  display: block;
+  color: gray;
+  font-size: 11px;
+  content: var(--shortcut);
+}
+
+.player-controls button img {
+  width: 32px;
+  height: 30px;
 }
 
 .player-controls .playback {

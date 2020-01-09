@@ -63,22 +63,38 @@ body {
   justify-content: center;
   align-content: center;
   display: flex;
-  input {
+  button {
+    font: inherit;
     display: block;
-    margin-top: 4px;
-    margin-left: 10px;
+    cursor: pointer;
+    // margin-top: 4px;
+    // height: 100%;
+    margin-left: 2px;
     stroke-width: 1;
     padding: 2px;
-    border-radius: 24px;
+    // border-radius: 24px;
     background: #E3EDF7;
-    width: 36px;
-    height: 36px;
+    // width: 36px;
+    // height: 36px;
     &:hover {
       background:  linear-gradient(204.92deg, #FFFFFF 19.31%, #93B6DE 78.15%);
     }
     &.disabled {
       pointer-events: none;
       opacity: 0;
+    }
+    
+    // background: red;
+    &::after {
+      padding-bottom: 2px;
+      display: block;
+      color: gray;
+      font-size: 11px;
+      content: var(--shortcut);
+    }
+    img {
+      width: 32px;
+      height: 30px;
     }
   }
 

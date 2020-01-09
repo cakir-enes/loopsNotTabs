@@ -21,6 +21,8 @@
      "ArrowLeft" {:dispatch [:backward]}
      "ArrowRight" {:dispatch [:forward]}
      "KeyR" {:dispatch [:toggle-loop-rec]}
+     "KeyX" {:dispatch [:stop-loop]}
+     "KeyQ" {:dispatch [:restart]}
      (println (.-code e)))))
 
 (rf/reg-event-db

@@ -53,15 +53,16 @@
         playing? @(rf/subscribe [:playing?])
         playback @(rf/subscribe [:playback-rate])
         looping? @(rf/subscribe [:active-loop])
+        control (fn [evt img-src sc] [:button {:style {"--shortcut" sc} :on-click #(rf/dispatch [evt])} [:img {:src img-src}]])
         rate (fn [rate text] [:h4 {:on-click #(rf/dispatch [:playback-change rate])  :class (when (= playback rate) "active")} text])]
     [:div.player-controls
-     [:input {:type "image" :on-click #(rf/dispatch [:stop-loop]) :src "icons/cross.png" :class (when-not looping? "disabled")}]
-     [:input {:type "image" :on-click #(rf/dispatch [:restart]) :src "icons/restart.svg"}]
-     [:input {:type "image" :on-click #(rf/dispatch [:backward]) :src "icons/forward.svg" :style {:transform "rotate(180deg)"}}]
-     [:input {:type "image" :on-click #(rf/dispatch [:toggle-player]) :src (if playing? "icons/pause.png" "icons/play.svg") }]
-     [:input {:type "image" :on-click #(rf/dispatch [:forward]) :src "icons/forward.svg"}]
-     [:input {:type "image" :on-click #(rf/dispatch [:toggle-loop-rec]) :src (if rec? "icons/loop-rec.png" "icons/loop.png")}]
-     [:div.playback  [rate 0.25 ".25"] [rate 0.5 ".50"] [ rate 1 " 1 "]]]))
+     [:button {:class (when-not looping? "disabled") :style {"--shortcut" "'X'"} :on-click #(rf/dispatch [:stop-loop])} [:img {:src "icons/cross.png"}]]
+     [control :restart "icons/restart.svg" "'Q'"]
+     [:button {:style {"--shortcut" "'<-'"} :on-click #(rf/dispatch [:backward])} [:img {:style {:transform "rotate(180deg)"} :src "icons/forward.svg"}]]
+     [control :toggle-player (if playing? "icons/pause.png" "icons/play.svg") "'SPC'"]
+     [control :forward "icons/forward.svg" "'->'"]
+     [control :toggle-loop-rec (if rec? "icons/loop-rec.png" "icons/loop.png") "'R'"]
+     [:div.playback  [rate 0.25 ".25"] [rate 0.5 ".50"] [rate 1 " 1 "]]]))
 
 (defn load []
   (let [inp (r/atom "")
