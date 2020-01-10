@@ -1,10 +1,11 @@
 (ns loops-not-tabs.events
   (:require
    [re-frame.core :as rf]
-   [loops-not-tabs.db :as db]))
+   [loops-not-tabs.db :as db]
+   [cljs.reader :as reader]))
 
 (defn- get-item [key]
-  (cljs.reader/read-string (.getItem (.-localStorage js/window) key)))
+  (reader/read-string (.getItem (.-localStorage js/window) key)))
 
 (rf/reg-event-fx
  ::initialize-db
